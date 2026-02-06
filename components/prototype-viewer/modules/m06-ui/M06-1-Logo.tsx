@@ -1,0 +1,81 @@
+/**
+ * M06-1: 로고 교체
+ * 건설사 로고를 업로드하고 교체하는 기능 시뮬레이션
+ */
+
+import React from 'react'
+import { DeviceFrame } from '../../components/DeviceFrame'
+import { DeviceView } from '../../types'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Upload, X } from 'lucide-react'
+
+interface M06_1_LogoProps {
+  deviceView: DeviceView
+  m06_1_logo: string | null
+  setM06_1_logo: (logo: string | null) => void
+}
+
+export function M06_1_Logo({
+  deviceView,
+  m06_1_logo,
+  setM06_1_logo
+}: M06_1_LogoProps) {
+  return (
+    <DeviceFrame deviceView={deviceView}>
+      <div className="flex flex-col min-h-full p-6">
+        <h2 className="text-xl font-bold text-foreground mb-6">
+          로고 교체
+        </h2>
+
+        <div className="flex-1 flex flex-col items-center justify-center">
+          {/* 로고 미리보기 */}
+          <div className="mb-8 text-center">
+            <p className="text-sm text-muted-foreground mb-2">
+              현재 적용된 로고
+            </p>
+            <div className="w-40 h-40 bg-white border-2 border-dashed border-border rounded-xl flex items-center justify-center overflow-hidden relative">
+              {m06_1_logo ? (
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary">
+                    {m06_1_logo}
+                  </span>
+                  <button
+                    onClick={() => setM06_1_logo(null)}
+                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ) : (
+                <span className="text-muted-foreground text-sm">
+                  로고 없음
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* 업로드 영역 */}
+          <div className="w-full max-w-xs">
+            <label className="block text-sm font-medium text-foreground mb-2">
+              새 로고 업로드
+            </label>
+            <div className="flex gap-2">
+              <Input
+                placeholder="회사명 입력 (이미지 대체)"
+                className="flex-1"
+                onChange={(e) => setM06_1_logo(e.target.value)}
+              />
+              <Button variant="outline">
+                <Upload className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              * 실제 구현 시 이미지 파일 업로드 기능이 제공됩니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </DeviceFrame>
+  )
+}

@@ -58,6 +58,9 @@ export function M07_1_ImageGuide({
             <h2 className="text-xl font-bold text-foreground mb-2">
               {sampleGuideSteps[m07_1_currentStep].title}
             </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+              💡 단계별 이미지 가이드를 제작하여 사용자에게 안내할 수 있습니다
+            </p>
             <p className="text-sm text-muted-foreground">
               {sampleGuideSteps[m07_1_currentStep].description}
             </p>

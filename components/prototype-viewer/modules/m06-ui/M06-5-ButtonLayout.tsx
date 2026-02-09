@@ -29,9 +29,14 @@ export function M06_5_ButtonLayout({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          버튼 레이아웃 설정
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            버튼 레이아웃 설정
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 주요 버튼(이전/다음 등)의 배치 방식을 선택할 수 있습니다
+          </p>
+        </div>
 
         {/* 레이아웃 선택 */}
         <div className="grid grid-cols-1 gap-3 mb-8">

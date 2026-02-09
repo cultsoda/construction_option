@@ -22,9 +22,14 @@ export function M06_4_TypeInfo({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6 bg-slate-100">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          타입 정보 표시
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            타입 정보 표시
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 평형/타입 정보를 화면의 원하는 위치에 표시할 수 있습니다
+          </p>
+        </div>
 
         {/* 위치 선택 */}
         <div className="flex gap-2 mb-6 bg-white p-1 rounded-lg border shadow-sm">

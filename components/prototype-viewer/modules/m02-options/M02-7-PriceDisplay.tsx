@@ -20,9 +20,14 @@ export function M02_7_PriceDisplay({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          옵션별 가격 표시
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            옵션별 가격 표시
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 각 옵션의 가격을 명확하게 표시하며, 마이너스 옵션도 구분됩니다
+          </p>
+        </div>
 
         <div className="space-y-4">
           {sampleOptionData.depth2Options.map((option) => (

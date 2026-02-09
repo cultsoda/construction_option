@@ -117,9 +117,14 @@ export function M02_2_Depth2({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          2Depth 옵션 선택
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            2Depth 옵션 선택
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 패키지 선택과 개별 옵션 선택을 함께 제공하며, 선택에 따라 다른 옵션이 연동됩니다
+          </p>
+        </div>
 
         {/* Confirmation Modal */}
         {showPackageConfirm && (

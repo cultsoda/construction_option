@@ -37,6 +37,7 @@ interface SubModule {
 export function ModulesDisplay({ onNavigateToChecklist, onNavigateToPrototype }: ModulesDisplayProps) {
   const selectedModules = useAppStore((state) => state.selectedModules)
   const toggleModule = useAppStore((state) => state.toggleModule)
+  const setActivePrototypeModule = useAppStore((state) => state.setActivePrototypeModule)
 
   // Convert array to Set for faster lookups
   const checkedModules = useMemo(() => new Set(selectedModules), [selectedModules])
@@ -149,15 +150,10 @@ export function ModulesDisplay({ onNavigateToChecklist, onNavigateToPrototype }:
     },
   ]
 
-  // Handle checkbox toggle
-  const handleToggleModule = (moduleId: string, isRequired: boolean) => {
-    if (isRequired) return // Can't uncheck required modules
-    toggleModule(moduleId)
-  }
-
   // Handle module name click - navigate to prototype
   const handleModuleClick = (moduleId: string) => {
     console.log('[v0] Module clicked:', moduleId)
+    setActivePrototypeModule(moduleId)
     onNavigateToPrototype()
   }
 

@@ -28,9 +28,14 @@ export function M06_3_Font({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          폰트 적용
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            폰트 적용
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 시스템에 적용되는 폰트를 변경하고 미리보기로 확인할 수 있습니다
+          </p>
+        </div>
 
         {/* 폰트 선택 */}
         <div className="space-y-3 mb-8">

@@ -22,9 +22,14 @@ export function M05_5_DataReset({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          1회 제출 제한
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            1회 제출 제한
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 견적서를 1회만 제출할 수 있으며, 제출 후에는 수정이 불가능합니다
+          </p>
+        </div>
 
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           {m05_5_hasSubmitted ? (

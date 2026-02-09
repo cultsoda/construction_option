@@ -44,9 +44,14 @@ export function M05_2_AutoSave({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          자체 DB 저장
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            자체 DB 저장
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 선택한 옵션 데이터를 자체 데이터베이스에 저장할 수 있습니다
+          </p>
+        </div>
 
         <div className="flex-1 flex flex-col items-center justify-center space-y-6">
           <div className="w-full max-w-sm p-4 bg-slate-900 rounded-lg font-mono text-xs text-green-400 overflow-hidden shadow-lg">

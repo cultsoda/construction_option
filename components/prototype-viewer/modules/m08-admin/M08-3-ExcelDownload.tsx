@@ -1,23 +1,33 @@
-/**
- * M08-3: Excel 일괄 다운로드
- * 대량의 데이터를 엑셀 파일로 내보내는 기능
- */
-
 import React, { useState } from 'react'
 import { DeviceFrame } from '../../components/DeviceFrame'
 import { DeviceView } from '../../types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { FileText, Download } from 'lucide-react'
+import { FileText, Download, RefreshCw, AlertCircle } from 'lucide-react' // RefreshCw, AlertCircle 추가
 
 interface M08_3_ExcelDownloadProps {
   deviceView: DeviceView
 }
 
+interface DownloadRecord {
+  date: string
+  file: string
+  size: string
+}
+
+const initialDownloadHistory: DownloadRecord[] = [
+  { date: "2024-01-17 14:30", file: "quotes_20240117.xlsx", size: "1.2 MB" },
+  { date: "2024-01-16 09:15", file: "quotes_20240116.xlsx", size: "1.1 MB" },
+  { date: "2024-01-15 16:45", file: "quotes_20240115.xlsx", size: "980 KB" },
+]
+
 export function M08_3_ExcelDownload({ deviceView }: M08_3_ExcelDownloadProps) {
   const [m08_3_isExporting, setM08_3_isExporting] = useState(false)
   const [m08_3_exportProgress, setM08_3_exportProgress] = useState(0)
+  const [downloadHistory, setDownloadHistory] = useState<DownloadRecord[]>(initialDownloadHistory)
+  const [m08_3_includeOptions, setM08_3_includeOptions] = useState(true)
+  const [m08_3_includeCustomerInfo, setM08_3_includeCustomerInfo] = useState(true)
 
   const handleExport = () => {
     setM08_3_isExporting(true)
@@ -28,6 +38,14 @@ export function M08_3_ExcelDownload({ deviceView }: M08_3_ExcelDownloadProps) {
         if (prev >= 100) {
           clearInterval(interval)
           setM08_3_isExporting(false)
+          
+          const newRecord = {
+            date: new Date().toLocaleString('ko-KR', { hour12: false }),
+            file: `quotes_${new Date().toJSON().slice(0, 10).replace(/-/g, '')}.xlsx`,
+            size: `${(Math.random() * (2.0 - 0.5) + 0.5).toFixed(1)} MB`
+          }
+          setDownloadHistory((prevHistory) => [newRecord, ...prevHistory])
+
           alert('다운로드가 완료되었습니다.')
           return 100
         }
@@ -39,9 +57,14 @@ export function M08_3_ExcelDownload({ deviceView }: M08_3_ExcelDownloadProps) {
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          Excel 일괄 다운로드
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            Excel 일괄 다운로드
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 선택한 기간의 모든 견적 데이터를 Excel 파일로 일괄 다운로드합니다
+          </p>
+        </div>
 
         <div className="flex-1 flex flex-col items-center justify-center space-y-6">
           <Card className="w-full max-w-sm shadow-lg">
@@ -124,23 +147,7 @@ export function M08_3_ExcelDownload({ deviceView }: M08_3_ExcelDownloadProps) {
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y">
-                {[
-                  {
-                    date: "2024-01-17 14:30",
-                    file: "quotes_20240117.xlsx",
-                    size: "1.2 MB",
-                  },
-                  {
-                    date: "2024-01-16 09:15",
-                    file: "quotes_20240116.xlsx",
-                    size: "1.1 MB",
-                  },
-                  {
-                    date: "2024-01-15 16:45",
-                    file: "quotes_20240115.xlsx",
-                    size: "980 KB",
-                  },
-                ].map((item, index) => (
+                {downloadHistory.map((item, index) => (
                   <div
                     key={index}
                     className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors"

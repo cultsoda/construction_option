@@ -23,9 +23,14 @@ export function M07_4_GuideButton({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6 relative">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          가이드 버튼
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            가이드 버튼
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 언제든지 접근 가능한 도움말 버튼으로 사용자를 지원합니다
+          </p>
+        </div>
 
         <div className="flex-1 bg-slate-50 rounded-xl border border-slate-200 relative">
           <div className="absolute top-4 right-4">

@@ -67,9 +67,14 @@ export function M02_11_Dependency({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          필수 연관 선택 가이드
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            필수 연관 선택 가이드
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 일부 옵션은 다른 옵션을 먼저 선택해야만 선택할 수 있습니다
+          </p>
+        </div>
 
         <div className="mb-6 p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
           <p className="font-semibold text-indigo-900 mb-1">

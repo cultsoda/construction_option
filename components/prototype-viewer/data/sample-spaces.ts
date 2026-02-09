@@ -31,17 +31,20 @@ export const structureTypes = [
     name: '기본형',
     model: 'model_basic.glb',
     description: '84㎡ 기본 구조',
+    image: '/placeholder-basic.png',
   },
   {
     id: 'expanded',
     name: '확장형',
     model: 'model_expanded.glb',
     description: '거실+침실2 확장',
+    image: '/placeholder-expanded.png',
   },
   {
     id: 'alpharoom',
     name: '알파룸형',
     model: 'model_alpha.glb',
     description: '알파룸 추가 구조',
+    image: '/placeholder-alpharoom.png',
   },
 ]

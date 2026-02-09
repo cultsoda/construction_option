@@ -44,11 +44,14 @@ export function M01_6_UserHeader({ deviceView }: M01_6_UserHeaderProps) {
         {/* 본문 컨텐츠 */}
         <div className="flex-1 p-8 overflow-auto">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-2">
               옵션 선택 화면
             </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+              💡 화면 상단에 사용자 정보가 고정되어 항상 표시됩니다
+            </p>
             <p className="text-muted-foreground mb-8">
-              상단에 입력하신 정보가 항상 표시됩니다.
+              스크롤해도 상단 헤더는 계속 표시됩니다
             </p>
 
             {/* 예시 컨텐츠 */}

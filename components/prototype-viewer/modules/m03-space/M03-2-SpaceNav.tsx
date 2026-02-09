@@ -29,9 +29,14 @@ export function M03_2_SpaceNav({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          위치 버튼 네비게이션
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            위치 버튼 네비게이션
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 공간별 버튼을 클릭하여 3D 뷰어에서 해당 위치로 이동할 수 있습니다
+          </p>
+        </div>
 
         {/* 공간 버튼 그리드 */}
         <div className="grid grid-cols-3 gap-3 mb-6">

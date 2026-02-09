@@ -46,9 +46,14 @@ export function M02_8_RealTimeCalc({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          실시간 금액 계산
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            실시간 금액 계산
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 선택한 옵션들의 총액이 실시간으로 계산되어 화면에 표시됩니다
+          </p>
+        </div>
 
         <div className="mb-6">
           <h3 className="text-sm font-semibold mb-3">평면 타입</h3>

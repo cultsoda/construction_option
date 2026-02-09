@@ -27,9 +27,14 @@ export function M02_1_Depth1({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          1Depth 옵션 선택
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            1Depth 옵션 선택
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 평면 타입 등 최상위 옵션을 선택하는 화면입니다
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {sampleOptionData.depth1Options.map((option) => {

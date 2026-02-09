@@ -45,9 +45,14 @@ export function M05_3_ApiSend({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          건설사 API 전송
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            건설사 API 전송
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 선택한 옵션 데이터를 건설사 시스템 API로 전송합니다
+          </p>
+        </div>
 
         <div className="flex-1 flex flex-col">
           <div className="mb-6 p-4 bg-slate-50 border-2 border-slate-200 rounded-xl">

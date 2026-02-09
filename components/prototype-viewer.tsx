@@ -207,6 +207,7 @@ const adminData = [
 
 export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
   const selectedModulesStore = useAppStore((state) => state.selectedModules);
+  const activePrototypeModule = useAppStore((state) => state.activePrototypeModule);
 
   // Define all available modules with their categories
   const allModules = useMemo(
@@ -318,6 +319,20 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
   }, [modulesByCategory]);
 
   const [selectedModule, setSelectedModule] = useState(firstModuleId);
+
+  // Sync selected module with store's active module (from deep linking)
+  useEffect(() => {
+    if (activePrototypeModule) {
+      // Check if the requested module is actually available in the current selection
+      const isAvailable = Object.values(modulesByCategory)
+        .flat()
+        .some((m) => m.id === activePrototypeModule);
+      
+      if (isAvailable) {
+        setSelectedModule(activePrototypeModule);
+      }
+    }
+  }, [activePrototypeModule, modulesByCategory]);
 
   // Update selected module if the current one is no longer available (e.g. deselected)
   useEffect(() => {
@@ -601,10 +616,17 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             defaultValue: true,
           },
           {
-            id: "detailedBreakdown",
-            label: "상세 분류",
+            id: "includeDetails",
+            label: "상세 정보 포함",
             type: "toggle",
-            defaultValue: false,
+            defaultValue: true,
+          },
+          {
+            id: "format",
+            label: "파일 형식",
+            type: "radio",
+            options: moduleId === "M04-6" ? ["A4", "A3", "Letter"] : ["XLSX", "CSV", "XLS"],
+            defaultValue: moduleId === "M04-6" ? "A4" : "XLSX",
           },
         ];
       default:
@@ -702,6 +724,10 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             sampleOptionData={sampleOptionData}
             multiSelection={multiSelection}
             setMultiSelection={setMultiSelection}
+            conditions={{
+              maxSelection: conditions.maxSelection ?? '제한없음',
+              showCount: conditions.showCount ?? true,
+            }}
           />
         );
       case "M02-6":
@@ -811,7 +837,17 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
 
       case "M04-1":
       case "M04-3":
-        return <M04_1_QuoteDownload deviceView={deviceView} />;
+        return (
+          <M04_1_QuoteDownload
+            deviceView={deviceView}
+            selectedOptions={selectedOptionsSummary}
+            conditions={{
+              showImages: conditions.showImages ?? true,
+              groupByCategory: conditions.groupByCategory ?? true,
+              showPrice: conditions.showPrice ?? true,
+            }}
+          />
+        );
 
       case "M04-2":
         return (
@@ -841,29 +877,30 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             optionCategories={optionCategories}
           />
         );
-      case "M04-2":
-        return (
-          <M04_2_EmailSend
-            deviceView={deviceView}
-            selectedOptionsSummary={selectedOptionsSummary}
-          />
-        );
-
-      case "M04-5":
-        return (
-          <M04_5_QuoteSummary
-            deviceView={deviceView}
-            m04_5_currentCategory={m04_5_currentCategory}
-            setM04_5_currentCategory={setM04_5_currentCategory}
-            optionCategories={optionCategories}
-          />
-        );
 
       case "M04-6":
-        return <M04_6_QuoteHistory deviceView={deviceView} />;
+        return (
+          <M04_6_QuoteHistory
+            deviceView={deviceView}
+            conditions={{
+              includeImages: conditions.includeImages ?? true,
+              includeDetails: conditions.includeDetails ?? true,
+              format: conditions.format ?? 'A4',
+            }}
+          />
+        );
 
       case "M04-7":
-        return <M04_7_QuoteShare deviceView={deviceView} />;
+        return (
+          <M04_7_QuoteShare
+            deviceView={deviceView}
+            conditions={{
+              includeImages: conditions.includeImages ?? true,
+              includeDetails: conditions.includeDetails ?? true,
+              format: conditions.format ?? 'XLSX',
+            }}
+          />
+        );
 
       case "M05-1":
         return <M05_1_LocalSave deviceView={deviceView} />;
@@ -1727,6 +1764,7 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             </span>
           </div>
 
+          {/* 코드 내보내기 버튼 - 프로토타입에서는 불필요하여 주석처리
           <Button
             variant="default"
             size="lg"
@@ -1735,6 +1773,7 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             <Download className="h-5 w-5" />
             코드 내보내기
           </Button>
+          */}
         </div>
       </div>
     </div>

@@ -37,12 +37,15 @@ export function M07_2_VideoGuide({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col h-full p-6 space-y-6">
-        <div>
+        <div className="mb-6">
           <h2 className="text-xl font-bold text-foreground mb-2">
             영상 가이드 제작
           </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-1">
+            💡 영상 파일을 업로드하여 사용자를 위한 가이드를 제공할 수 있습니다
+          </p>
           <p className="text-sm text-muted-foreground">
-            사용자를 위한 영상 가이드를 업로드하고 관리합니다.
+            업로드한 영상을 관리하고 미리보기로 확인합니다
           </p>
         </div>
 

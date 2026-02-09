@@ -36,8 +36,11 @@ export function M01_2_Login({
           <h2 className="text-2xl font-bold text-center text-foreground mb-2">
             로그인
           </h2>
+          <p className="text-sm text-center text-muted-foreground leading-relaxed mb-2">
+            💡 아이디와 비밀번호를 입력하여 로그인할 수 있습니다
+          </p>
           <p className="text-sm text-center text-muted-foreground mb-8">
-            옵션 선택을 위해 로그인하세요
+            계정 정보를 입력해주세요
           </p>
 
           {/* 에러 메시지 */}

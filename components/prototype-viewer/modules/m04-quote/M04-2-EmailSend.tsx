@@ -26,9 +26,14 @@ export function M04_2_EmailSend({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          옵션 요약 표시
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            옵션 요약 표시
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 선택한 옵션 목록을 요약하여 확인하고 개별 항목을 제거할 수 있습니다
+          </p>
+        </div>
 
         <div className="flex-1 space-y-4">
           {selectedOptionsSummary.map((item, i) => (

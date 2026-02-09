@@ -26,9 +26,14 @@ export function M01_5_ConfirmInfo({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          입력 정보 확인
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            입력 정보 확인
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 입력한 고객 정보를 최종 확인하고 필요시 수정할 수 있습니다
+          </p>
+        </div>
 
         {/* 입력된 정보 표시 */}
         <div className="space-y-4 max-w-md mx-auto w-full flex-1">

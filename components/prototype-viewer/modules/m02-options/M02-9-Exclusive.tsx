@@ -58,9 +58,14 @@ export function M02_9_Exclusive({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          배타적 선택 로직
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            배타적 선택 로직
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 특정 옵션들은 서로 함께 선택할 수 없으며, 충돌 시 경고가 표시됩니다
+          </p>
+        </div>
 
         <div className="mb-6 p-4 bg-purple-50 border border-purple-200 rounded-lg">
           <p className="font-semibold text-purple-900 mb-1">

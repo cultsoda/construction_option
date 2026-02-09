@@ -93,7 +93,12 @@ export function M01_4_Validation({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">정보 검증</h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">정보 검증</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 입력한 정보를 실시간 또는 제출 시점에 검증하여 오류를 방지합니다
+          </p>
+        </div>
 
         {/* Error Summary for 제출시 validation */}
         {!isRealtime && submitAttempted && hasErrors && (

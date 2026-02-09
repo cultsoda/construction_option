@@ -70,12 +70,14 @@ interface AppState {
   checklistAnswers: ChecklistAnswers
   selectedModules: string[]
   activeTab: TabType
+  activePrototypeModule: string | null
 
   // Actions
   setAnswer: <K extends keyof ChecklistAnswers>(questionId: K, value: ChecklistAnswers[K]) => void
   calculateRequiredModules: () => void
   toggleModule: (moduleCode: string) => void
   setActiveTab: (tab: TabType) => void
+  setActivePrototypeModule: (moduleId: string) => void
   resetChecklist: () => void
 }
 
@@ -366,6 +368,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   checklistAnswers: initialChecklistAnswers,
   selectedModules: [],
   activeTab: 'checklist',
+  activePrototypeModule: null,
 
   // Actions
   setAnswer: (questionId, value) => {
@@ -399,6 +402,11 @@ export const useAppStore = create<AppState>((set, get) => ({
   setActiveTab: (tab) => {
     set({ activeTab: tab })
     console.log('[Store] Active tab changed:', tab)
+  },
+
+  setActivePrototypeModule: (moduleId) => {
+    set({ activePrototypeModule: moduleId })
+    console.log('[Store] Set active prototype module:', moduleId)
   },
 
   resetChecklist: () => {

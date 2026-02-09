@@ -50,12 +50,15 @@ export function M08_2_DataSearch({ deviceView }: M08_2_DataSearchProps) {
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col h-full p-6 space-y-6">
-        <div>
+        <div className="mb-6">
           <h2 className="text-xl font-bold text-foreground mb-2">
             데이터 검색 기능
           </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-1">
+            💡 제출된 견적 데이터를 다양한 조건으로 검색하고 필터링할 수 있습니다
+          </p>
           <p className="text-sm text-muted-foreground">
-            제출된 견적 데이터를 검색하고 필터링합니다.
+            고객명, 타입, 기간 등으로 검색 가능합니다
           </p>
         </div>
 

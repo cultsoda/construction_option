@@ -40,9 +40,14 @@ export function M03_4_DropdownNav({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          위치 하이라이트 표시
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            위치 하이라이트 표시
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 특정 영역을 선택하면 3D 뷰어에서 하이라이트로 강조 표시됩니다
+          </p>
+        </div>
 
         <div className="space-y-6">
           {highlightAreas.map((area) => {

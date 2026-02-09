@@ -26,9 +26,14 @@ export function M02_6_DefaultValue({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          옵션 기본값 설정
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            옵션 기본값 설정
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 isDefault 속성이 true인 옵션이 자동으로 선택된 상태로 시작됩니다
+          </p>
+        </div>
 
         <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
           <p className="font-semibold text-green-900 mb-1">✓ 기본값 설정됨</p>

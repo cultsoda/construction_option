@@ -28,9 +28,14 @@ export function M05_6_TempSave({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          제출 이력 관리
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            제출 이력 관리
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 제출한 견적서의 이력을 조회하고 관리할 수 있습니다
+          </p>
+        </div>
 
         <div className="flex-1">
           {/* 필터 */}

@@ -23,11 +23,14 @@ export function M01_1_SsoLogin({ deviceView }: M01_1_SsoLoginProps) {
           </div>
 
           {/* 제목 */}
-          <h2 className="text-2xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl font-bold text-foreground mb-2">
             옵션 시스템
           </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">
+            💡 건설사 통합 인증(SSO)을 통해 간편하게 로그인할 수 있습니다
+          </p>
           <p className="text-sm text-muted-foreground mb-8">
-            건설사 통합 인증으로 로그인하세요
+            별도의 회원가입 없이 건설사 계정으로 로그인하세요
           </p>
 
           {/* SSO 로그인 버튼 */}

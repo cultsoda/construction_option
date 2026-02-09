@@ -53,9 +53,14 @@ export function M03_3_TabNav({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          옵션 선택 시 자동 이동
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            옵션 선택 시 자동 이동
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 옵션을 선택하면 3D 뷰어가 해당 공간으로 자동 이동합니다
+          </p>
+        </div>
 
         {/* 옵션 선택 */}
         <div className="space-y-3 mb-6">

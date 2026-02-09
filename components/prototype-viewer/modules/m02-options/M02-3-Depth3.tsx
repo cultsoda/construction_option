@@ -18,9 +18,14 @@ export function M02_3_Depth3({ deviceView, isMobile }: M02_3_Depth3Props) {
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          {depth}Depth 옵션 선택
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            {depth}Depth 옵션 선택
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 카테고리 → 세부 옵션 → 추가 옵션의 3단계 구조로 옵션을 선택합니다
+          </p>
+        </div>
 
         <div className="space-y-6 flex-1">
           {/* 1Depth */}

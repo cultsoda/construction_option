@@ -38,9 +38,14 @@ export function M06_2_ColorTheme({
           "--primary": currentColor,
         }}
       >
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          컬러 테마 설정
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            컬러 테마 설정
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 시스템 전반의 컬러 테마를 변경하여 브랜드 아이덴티티를 적용합니다
+          </p>
+        </div>
 
         {/* 테마 선택 */}
         <div className="grid grid-cols-2 gap-3 mb-8">

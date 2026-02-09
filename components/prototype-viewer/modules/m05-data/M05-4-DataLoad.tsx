@@ -25,9 +25,14 @@ export function M05_4_DataLoad({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          N회 제출 허용
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            N회 제출 허용
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 제출 횟수를 관리하고 최대 횟수까지 견적서를 제출할 수 있습니다
+          </p>
+        </div>
 
         <div className="mb-8 text-center">
           <div className="inline-block p-4 rounded-full bg-slate-100 mb-4 relative">

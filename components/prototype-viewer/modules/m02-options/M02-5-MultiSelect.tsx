@@ -14,6 +14,10 @@ interface M02_5_MultiSelectProps {
   sampleOptionData: OptionData
   multiSelection: string[]
   setMultiSelection: (ids: string[]) => void
+  conditions?: {
+    maxSelection?: string
+    showCount?: boolean
+  }
 }
 
 export function M02_5_MultiSelect({
@@ -21,8 +25,16 @@ export function M02_5_MultiSelect({
   sampleOptionData,
   multiSelection,
   setMultiSelection,
+  conditions = {
+    maxSelection: '3개',
+    showCount: true,
+  },
 }: M02_5_MultiSelectProps) {
-  const maxSelection = 3
+  // maxSelection 값 파싱 ("제한없음", "3개", "5개" -> 숫자 또는 Infinity)
+  const maxSelection =
+    conditions.maxSelection === '제한없음'
+      ? Infinity
+      : parseInt(conditions.maxSelection?.replace('개', '') || '3')
 
   const handleMultiToggle = (optionId: string) => {
     if (multiSelection.includes(optionId)) {
@@ -41,9 +53,12 @@ export function M02_5_MultiSelect({
       <div className="flex flex-col min-h-full p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-foreground">다중 선택 기능</h2>
-          <Badge variant="secondary" className="px-3 py-1">
-            선택됨: {multiSelection.length}/{maxSelection}
-          </Badge>
+          {conditions.showCount && (
+            <Badge variant="secondary" className="px-3 py-1">
+              선택됨: {multiSelection.length}
+              {maxSelection !== Infinity && `/${maxSelection}`}
+            </Badge>
+          )}
         </div>
 
         <div className="space-y-3">
@@ -89,12 +104,20 @@ export function M02_5_MultiSelect({
           })}
         </div>
 
-        {multiSelection.length >= maxSelection && (
+        {maxSelection !== Infinity && multiSelection.length >= maxSelection && (
           <div className="mt-6 p-4 bg-orange-50 border border-orange-200 rounded-lg text-sm">
             <p className="font-semibold text-orange-900 mb-1">⚠️ 선택 제한</p>
             <p className="text-orange-800">
               최대 {maxSelection}개까지 선택 가능합니다. 다른 옵션을 선택하려면
               기존 선택을 해제하세요.
+            </p>
+          </div>
+        )}
+
+        {maxSelection === Infinity && multiSelection.length > 0 && (
+          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm">
+            <p className="text-blue-900">
+              💡 선택 제한 없이 원하는 만큼 옵션을 선택할 수 있습니다.
             </p>
           </div>
         )}

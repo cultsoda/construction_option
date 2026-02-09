@@ -36,9 +36,14 @@ export function M07_3_GuidePopup({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6 relative">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          가이드 팝업
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            가이드 팝업
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 최초 진입 시 안내 팝업을 표시하여 사용자가 시스템을 이해하도록 돕습니다
+          </p>
+        </div>
 
         <div className="flex-1 flex items-center justify-center p-8 text-center text-muted-foreground bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
           메인 화면 컨텐츠가 여기에 표시됩니다.

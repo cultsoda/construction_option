@@ -41,9 +41,14 @@ export function M02_10_MinusOption({
   return (
     <DeviceFrame deviceView={deviceView}>
       <div className="flex flex-col min-h-full p-6">
-        <h2 className="text-xl font-bold text-foreground mb-6">
-          마이너스 옵션 UI
-        </h2>
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-foreground mb-2">
+            마이너스 옵션 UI
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            💡 기본 제공 품목을 제외하고 가격을 차감받을 수 있는 옵션입니다
+          </p>
+        </div>
 
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="font-semibold text-red-900 mb-1">💸 마이너스 옵션</p>

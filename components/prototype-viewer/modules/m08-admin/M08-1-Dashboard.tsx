@@ -39,7 +39,10 @@ export function M08_1_Dashboard({
         <div className="bg-slate-900 text-white p-4 flex items-center justify-between shadow-md">
           <div className="flex items-center gap-3">
             <UserCog className="h-6 w-6" />
-            <span className="font-bold">관리자 페이지</span>
+            <div>
+              <span className="font-bold block">관리자 페이지</span>
+              <span className="text-xs text-slate-400">💡 시스템 통계와 제출 데이터를 관리하는 대시보드입니다</span>
+            </div>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <span className="text-slate-400">admin@construction.com</span>

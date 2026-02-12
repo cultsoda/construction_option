@@ -71,6 +71,7 @@ interface AppState {
   selectedModules: string[]
   activeTab: TabType
   activePrototypeModule: string | null
+  viewMode: 'builder' | 'docs'
 
   // Actions
   setAnswer: <K extends keyof ChecklistAnswers>(questionId: K, value: ChecklistAnswers[K]) => void
@@ -78,6 +79,7 @@ interface AppState {
   toggleModule: (moduleCode: string) => void
   setActiveTab: (tab: TabType) => void
   setActivePrototypeModule: (moduleId: string) => void
+  setViewMode: (mode: 'builder' | 'docs') => void
   resetChecklist: () => void
 }
 
@@ -356,6 +358,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   selectedModules: [],
   activeTab: 'checklist',
   activePrototypeModule: null,
+  viewMode: 'builder',
 
   // Actions
   setAnswer: (questionId, value) => {
@@ -394,6 +397,11 @@ export const useAppStore = create<AppState>((set, get) => ({
   setActivePrototypeModule: (moduleId) => {
     set({ activePrototypeModule: moduleId })
     console.log('[Store] Set active prototype module:', moduleId)
+  },
+
+  setViewMode: (mode) => {
+    set({ viewMode: mode })
+    console.log('[Store] View mode changed:', mode)
   },
 
   resetChecklist: () => {

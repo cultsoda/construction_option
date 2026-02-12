@@ -206,7 +206,6 @@ export function ModulesDisplay({
       subModules: [
         { id: "M08-1", name: "관리자 페이지", type: "선택" },
         { id: "M08-2", name: "데이터 검색 기능", type: "선택" },
-        { id: "M08-3", name: "Excel 일괄 다운로드", type: "선택" },
       ],
     },
   ];
@@ -298,8 +297,13 @@ export function ModulesDisplay({
                       <Icon className="h-6 w-6 text-primary" strokeWidth={2} />
                     </div>
                     <div>
-                      <CardTitle className="text-lg font-bold text-foreground">
+                      <CardTitle className="text-lg font-bold text-foreground flex items-center gap-2">
                         {module.title}
+                        {(module.id === 'M07' || module.id === 'M08') && (
+                          <Badge variant="outline" className="text-xs px-2 py-0.5 bg-red-100 text-red-700 border-red-200">
+                            Admin
+                          </Badge>
+                        )}
                       </CardTitle>
                       <Badge variant="secondary" className="mt-1 text-xs">
                         총 {moduleCount}개 모듈

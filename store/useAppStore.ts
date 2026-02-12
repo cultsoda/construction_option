@@ -343,11 +343,6 @@ function calculateModulesFromAnswers(answers: ChecklistAnswers): string[] {
     modules.push('M08-2')
   }
 
-  // M08-3: 관리자 페이지 필요 = Y
-  if (answers.q9_3) {
-    modules.push('M08-3')
-  }
-
   return modules
 }
 

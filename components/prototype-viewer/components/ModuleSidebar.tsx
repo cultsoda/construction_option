@@ -7,6 +7,7 @@
 import React from 'react'
 import { ChevronRight } from 'lucide-react'
 import { ModulesByCategory } from '../types'
+import { Badge } from '@/components/ui/badge'
 
 interface ModuleSidebarProps {
   modulesByCategory: ModulesByCategory
@@ -30,14 +31,20 @@ export function ModuleSidebar({
           <h2 className="text-lg font-bold px-2">모듈 선택</h2>
           {Object.entries(modulesByCategory).map(([category, modules]) => {
             const isExpanded = expandedCategories.has(category)
+            const isAdminCategory = category.startsWith('M07') || category.startsWith('M08')
             return (
               <div key={category} className="border rounded-lg overflow-hidden">
                 <button
                   onClick={() => onToggleCategory(category)}
                   className="w-full flex items-center justify-between p-3 bg-muted/30 hover:bg-muted/50 transition-colors text-left"
                 >
-                  <span className="text-sm font-semibold text-foreground">
+                  <span className="text-sm font-semibold text-foreground flex items-center gap-2">
                     {category}
+                    {isAdminCategory && (
+                      <Badge variant="outline" className="text-xs px-2 py-0.5 bg-red-100 text-red-700 border-red-200">
+                        Admin
+                      </Badge>
+                    )}
                   </span>
                   <ChevronRight
                     className={`h-4 w-4 text-muted-foreground transition-transform ${

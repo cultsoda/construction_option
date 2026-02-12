@@ -6,7 +6,7 @@
 import React from 'react'
 import { DeviceFrame } from '../../components/DeviceFrame'
 import { DeviceView } from '../../types'
-import { Layout, X } from 'lucide-react'
+import { Layout, Info } from 'lucide-react'
 
 interface M06_4_TypeInfoProps {
   deviceView: DeviceView
@@ -36,7 +36,7 @@ export function M06_4_TypeInfo({
           {[
             { id: "top", name: "상단 고정", icon: Layout },
             { id: "sidebar", name: "사이드바", icon: Layout },
-            { id: "none", name: "표시 안함", icon: X },
+            { id: "floating", name: "플로팅 버튼", icon: Info },
           ].map((pos) => {
             const Icon = pos.icon;
             return (
@@ -71,7 +71,7 @@ export function M06_4_TypeInfo({
             <div className="w-6 h-6 bg-white/20 rounded-full" />
           </div>
 
-          <div className="flex-1 flex">
+          <div className="flex-1 flex relative">
             {/* 사이드바 */}
             {m06_4_typePos === "sidebar" && (
               <div className="w-32 bg-slate-50 border-r border-slate-200 p-4 animate-in slide-in-from-left-10">
@@ -100,6 +100,21 @@ export function M06_4_TypeInfo({
                 <div className="h-4 w-1/2 bg-slate-100 rounded" />
                 <div className="h-4 w-full bg-slate-100 rounded" />
               </div>
+
+              {/* 플로팅 버튼 */}
+              {m06_4_typePos === "floating" && (
+                <div className="absolute bottom-6 right-6 group">
+                  <div className="bg-slate-900 text-white p-3 rounded-full shadow-lg flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                    <Info className="h-6 w-6" />
+                  </div>
+                  {/* 툴팁 (Hover 시 표시) */}
+                  <div className="absolute bottom-full right-0 mb-2 w-40 bg-white border border-slate-200 p-3 rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <p className="text-xs text-slate-500 mb-1">내 계약 정보</p>
+                    <p className="font-bold text-slate-900">84A Type</p>
+                    <p className="text-xs text-slate-700">101동 1001호</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

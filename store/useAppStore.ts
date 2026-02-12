@@ -251,14 +251,9 @@ function calculateModulesFromAnswers(answers: ChecklistAnswers): string[] {
     modules.push('M04-5')
   }
 
-  // M04-6: 다운로드 형식에 'PDF' 포함
-  if (answers.q5_4.includes('PDF')) {
+  // M04-6: 다운로드 형식에 'PDF' 또는 'Excel' 포함 (통합 모듈)
+  if (answers.q5_4.includes('PDF') || answers.q5_4.includes('Excel')) {
     modules.push('M04-6')
-  }
-
-  // M04-7: 다운로드 형식에 'Excel' 포함
-  if (answers.q5_4.includes('Excel')) {
-    modules.push('M04-7')
   }
 
   // M05: 데이터 저장/전송
@@ -291,9 +286,6 @@ function calculateModulesFromAnswers(answers: ChecklistAnswers): string[] {
   if (answers.q6_4) {
     modules.push('M05-6')
   }
-
-  // M05-7: Always included (제출 확인 팝업)
-  modules.push('M05-7')
 
   // M06: UI 커스터마이징
   // M06-1: 로고 커스터마이징

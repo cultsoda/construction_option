@@ -7,18 +7,18 @@ import { OptionData } from '../types'
 export const sampleOptionData: OptionData = {
   depth1Options: [
     {
-      id: 'opt1-1',
-      name: '확장형',
-      price: 5000000,
-      description: '거실 확장 + 침실2 확장',
-      image: '/placeholder.svg',
-    },
-    {
       id: 'opt1-2',
       name: '기본형',
       price: 0,
       description: '기본 평면',
       isDefault: true,
+      image: '/placeholder.svg',
+    },
+    {
+      id: 'opt1-1',
+      name: '확장형',
+      price: 5000000,
+      description: '거실 확장 + 침실2 확장',
       image: '/placeholder.svg',
     },
     {

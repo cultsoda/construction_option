@@ -44,23 +44,23 @@ import { M02_8_RealTimeCalc } from "./prototype-viewer/modules/m02-options/M02-8
 import { M02_9_Exclusive } from "./prototype-viewer/modules/m02-options/M02-9-Exclusive";
 import { M02_10_MinusOption } from "./prototype-viewer/modules/m02-options/M02-10-MinusOption";
 import { M02_11_Dependency } from "./prototype-viewer/modules/m02-options/M02-11-Dependency";
+import { M03_1_3DViewer } from "./prototype-viewer/modules/m03-space/M03-1-3DViewer";
 import { M03_2_SpaceNav } from "./prototype-viewer/modules/m03-space/M03-2-SpaceNav";
 import { M03_3_TabNav } from "./prototype-viewer/modules/m03-space/M03-3-TabNav";
 import { M03_4_DropdownNav } from "./prototype-viewer/modules/m03-space/M03-4-DropdownNav";
 import { M03_5_SliderNav } from "./prototype-viewer/modules/m03-space/M03-5-SliderNav";
 import { M04_1_QuoteDownload } from "./prototype-viewer/modules/m04-quote/M04-1-QuoteDownload";
 import { M04_2_EmailSend } from "./prototype-viewer/modules/m04-quote/M04-2-EmailSend";
+import { M04_3_FinalQuote } from "./prototype-viewer/modules/m04-quote/M04-3-FinalQuote";
 import { M04_4_QuoteCompare } from "./prototype-viewer/modules/m04-quote/M04-4-QuoteCompare";
 import { M04_5_QuoteSummary } from "./prototype-viewer/modules/m04-quote/M04-5-QuoteSummary";
-import { M04_6_QuoteHistory } from "./prototype-viewer/modules/m04-quote/M04-6-QuoteHistory";
-import { M04_7_QuoteShare } from "./prototype-viewer/modules/m04-quote/M04-7-QuoteShare";
+import { M04_6_FileDownload } from "./prototype-viewer/modules/m04-quote/M04-6-FileDownload";
 import { M05_1_LocalSave } from "./prototype-viewer/modules/m05-data/M05-1-LocalSave";
 import { M05_2_AutoSave } from "./prototype-viewer/modules/m05-data/M05-2-AutoSave";
 import { M05_3_ApiSend } from "./prototype-viewer/modules/m05-data/M05-3-ApiSend";
 import { M05_4_DataLoad } from "./prototype-viewer/modules/m05-data/M05-4-DataLoad";
 import { M05_5_DataReset } from "./prototype-viewer/modules/m05-data/M05-5-DataReset";
-import { M05_6_TempSave } from "./prototype-viewer/modules/m05-data/M05-6-TempSave";
-import { M05_7_DataExport } from "./prototype-viewer/modules/m05-data/M05-7-DataExport";
+import { M05_6_History } from "./prototype-viewer/modules/m05-data/M05-6-History";
 // M06 UI Customizing
 import { M06_1_Logo } from "./prototype-viewer/modules/m06-ui/M06-1-Logo";
 import { M06_2_ColorTheme } from "./prototype-viewer/modules/m06-ui/M06-2-ColorTheme";
@@ -207,7 +207,9 @@ const adminData = [
 
 export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
   const selectedModulesStore = useAppStore((state) => state.selectedModules);
-  const activePrototypeModule = useAppStore((state) => state.activePrototypeModule);
+  const activePrototypeModule = useAppStore(
+    (state) => state.activePrototypeModule
+  );
 
   // Define all available modules with their categories
   const allModules = useMemo(
@@ -246,8 +248,7 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
         { id: "M04-3", name: "최종 견적서 화면", hasPreview: true },
         { id: "M04-4", name: "견적서 내 옵션 수정", hasPreview: true },
         { id: "M04-5", name: "다음/이전 버튼", hasPreview: true },
-        { id: "M04-6", name: "PDF 다운로드", hasPreview: true },
-        { id: "M04-7", name: "Excel 다운로드", hasPreview: true },
+        { id: "M04-6", name: "견적서 파일 다운로드", hasPreview: true },
       ],
       "M05: 데이터 저장/전송": [
         { id: "M05-1", name: "구글 시트 API 연동", hasPreview: true },
@@ -256,7 +257,6 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
         { id: "M05-4", name: "N회 제출 허용", hasPreview: true },
         { id: "M05-5", name: "1회 제출 제한", hasPreview: true },
         { id: "M05-6", name: "제출 이력 관리", hasPreview: true },
-        { id: "M05-7", name: "제출 확인 팝업", hasPreview: true },
       ],
       "M06: UI 커스터마이징": [
         { id: "M06-1", name: "로고 교체", hasPreview: true },
@@ -327,7 +327,7 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
       const isAvailable = Object.values(modulesByCategory)
         .flat()
         .some((m) => m.id === activePrototypeModule);
-      
+
       if (isAvailable) {
         setSelectedModule(activePrototypeModule);
       }
@@ -344,6 +344,18 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
       setSelectedModule(firstModuleId);
     }
   }, [modulesByCategory, selectedModule, firstModuleId]);
+
+  // Reset conditions when module changes
+  useEffect(() => {
+    const moduleConditions = getConditionsForModule(selectedModule);
+    const newConditions: Record<string, any> = {};
+
+    moduleConditions.forEach((cond) => {
+      newConditions[cond.id] = cond.defaultValue;
+    });
+
+    setConditions(newConditions);
+  }, [selectedModule]);
 
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     () => new Set(Object.keys(modulesByCategory))
@@ -506,28 +518,6 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
 
   const getConditionsForModule = (moduleId: string): Condition[] => {
     switch (moduleId) {
-      case "M01-3":
-        return [
-          {
-            id: "loginRequired",
-            label: "로그인 필요",
-            type: "toggle",
-            defaultValue: true,
-          },
-          {
-            id: "validationCheck",
-            label: "유효성 체크",
-            type: "toggle",
-            defaultValue: false,
-          },
-          {
-            id: "reenterMethod",
-            label: "재입력 방법",
-            type: "radio",
-            options: ["새로고침", "수정버튼"],
-            defaultValue: "새로고침",
-          },
-        ];
       case "M01-4":
         return [
           {
@@ -546,15 +536,22 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
           },
         ];
       case "M02-2":
-      case "M02-3":
         return [
           {
-            id: "depth",
-            label: "Depth",
-            type: "radio",
-            options: ["1", "2", "3"],
-            defaultValue: moduleId === "M02-2" ? "2" : "3",
+            id: "multiSelect",
+            label: "다중선택",
+            type: "toggle",
+            defaultValue: false,
           },
+          {
+            id: "depthInfluence",
+            label: "1Depth 영향",
+            type: "toggle",
+            defaultValue: true,
+          },
+        ];
+      case "M02-3":
+        return [
           {
             id: "multiSelect",
             label: "다중선택",
@@ -585,7 +582,6 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
           },
         ];
       case "M04-1":
-      case "M04-3":
         return [
           {
             id: "showImages",
@@ -606,29 +602,10 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             defaultValue: true,
           },
         ];
+      case "M04-3":
+        return [];
       case "M04-6":
-      case "M04-7":
-        return [
-          {
-            id: "includeImages",
-            label: "이미지 포함",
-            type: "toggle",
-            defaultValue: true,
-          },
-          {
-            id: "includeDetails",
-            label: "상세 정보 포함",
-            type: "toggle",
-            defaultValue: true,
-          },
-          {
-            id: "format",
-            label: "파일 형식",
-            type: "radio",
-            options: moduleId === "M04-6" ? ["A4", "A3", "Letter"] : ["XLSX", "CSV", "XLS"],
-            defaultValue: moduleId === "M04-6" ? "A4" : "XLSX",
-          },
-        ];
+        return [];
       default:
         return [];
     }
@@ -705,7 +682,13 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
         );
 
       case "M02-3":
-        return <M02_3_Depth3 deviceView={deviceView} isMobile={isMobile} />;
+        return (
+          <M02_3_Depth3
+            deviceView={deviceView}
+            isMobile={isMobile}
+            conditions={conditions as any} // 이 부분을 추가하세요!
+          />
+        );
       case "M02-4":
         return (
           <M02_4_Depth1Link
@@ -725,7 +708,7 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             multiSelection={multiSelection}
             setMultiSelection={setMultiSelection}
             conditions={{
-              maxSelection: conditions.maxSelection ?? '제한없음',
+              maxSelection: conditions.maxSelection ?? "제한없음",
               showCount: conditions.showCount ?? true,
             }}
           />
@@ -789,6 +772,10 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
             setDepSelection={setDepSelection}
           />
         );
+
+      case "M03-1":
+        return <M03_1_3DViewer deviceView={deviceView} />;
+
       case "M03-2":
         return (
           <M03_2_SpaceNav
@@ -836,18 +823,15 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
         );
 
       case "M04-1":
-      case "M04-3":
         return (
           <M04_1_QuoteDownload
             deviceView={deviceView}
-            selectedOptions={selectedOptionsSummary}
-            conditions={{
-              showImages: conditions.showImages ?? true,
-              groupByCategory: conditions.groupByCategory ?? true,
-              showPrice: conditions.showPrice ?? true,
-            }}
+            conditions={conditions as any}
           />
         );
+
+      case "M04-3":
+        return <M04_3_FinalQuote deviceView={deviceView} />;
 
       case "M04-2":
         return (
@@ -879,28 +863,7 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
         );
 
       case "M04-6":
-        return (
-          <M04_6_QuoteHistory
-            deviceView={deviceView}
-            conditions={{
-              includeImages: conditions.includeImages ?? true,
-              includeDetails: conditions.includeDetails ?? true,
-              format: conditions.format ?? 'A4',
-            }}
-          />
-        );
-
-      case "M04-7":
-        return (
-          <M04_7_QuoteShare
-            deviceView={deviceView}
-            conditions={{
-              includeImages: conditions.includeImages ?? true,
-              includeDetails: conditions.includeDetails ?? true,
-              format: conditions.format ?? 'XLSX',
-            }}
-          />
-        );
+        return <M04_6_FileDownload deviceView={deviceView} />;
 
       case "M05-1":
         return <M05_1_LocalSave deviceView={deviceView} />;
@@ -947,20 +910,9 @@ export function PrototypeViewer({ onNavigateToModules }: PrototypeViewerProps) {
 
       case "M05-6":
         return (
-          <M05_6_TempSave
+          <M05_6_History
             deviceView={deviceView}
             m05_6_history={m05_6_history}
-          />
-        );
-
-      case "M05-7":
-        return (
-          <M05_7_DataExport
-            deviceView={deviceView}
-            m05_7_showConfirm={m05_7_showConfirm}
-            setM05_7_showConfirm={setM05_7_showConfirm}
-            m05_7_isSubmitting={m05_7_isSubmitting}
-            setM05_7_isSubmitting={setM05_7_isSubmitting}
           />
         );
 

@@ -62,13 +62,20 @@ export function M02_8_RealTimeCalc({
               <button
                 key={option.id}
                 onClick={() => setCalc1Depth(option.id)}
-                className={`flex-1 p-3 border-2 rounded-lg font-medium ${
+                className={`flex-1 p-3 border-2 rounded-lg font-medium text-left ${
                   calc1Depth === option.id
                     ? 'border-primary bg-primary text-white'
                     : 'border-border'
                 }`}
               >
-                {option.name}
+                <p>{option.name}</p>
+                <p className={`text-xs ${
+                  calc1Depth === option.id ? 'text-white/80' : 'text-muted-foreground'
+                }`}>
+                  {option.price === 0
+                    ? '기본 포함'
+                    : `+ ${(option.price / 10000).toLocaleString()}만원`}
+                </p>
               </button>
             ))}
           </div>
@@ -77,37 +84,45 @@ export function M02_8_RealTimeCalc({
         <div className="mb-6">
           <h3 className="text-sm font-semibold mb-3">세부 옵션</h3>
           <div className="space-y-2">
-            {sampleOptionData.depth2Options.slice(0, 4).map((option) => {
-              const isSelected = calc2Depth.includes(option.id)
-              return (
-                <div
-                  key={option.id}
-                  onClick={() => {
-                    if (isSelected) {
-                      setCalc2Depth(calc2Depth.filter((id) => id !== option.id))
-                    } else {
-                      setCalc2Depth([...calc2Depth, option.id])
-                    }
-                  }}
-                  className={`p-3 border-2 rounded-lg cursor-pointer flex items-center justify-between ${
-                    isSelected ? 'border-primary bg-primary/5' : 'border-border'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <Checkbox checked={isSelected} className="h-4 w-4" />
-                    <span className="text-sm font-medium">{option.name}</span>
-                  </div>
-                  <span
-                    className={`text-sm font-bold ${
-                      option.price < 0 ? 'text-red-600' : 'text-primary'
+            {sampleOptionData.depth2Options
+              .filter(
+                (option) => !option.parent || option.parent === calc1Depth
+              )
+              .map((option) => {
+                const isSelected = calc2Depth.includes(option.id)
+                return (
+                  <div
+                    key={option.id}
+                    onClick={() => {
+                      if (isSelected) {
+                        setCalc2Depth(
+                          calc2Depth.filter((id) => id !== option.id)
+                        )
+                      } else {
+                        setCalc2Depth([...calc2Depth, option.id])
+                      }
+                    }}
+                    className={`p-3 border-2 rounded-lg cursor-pointer flex items-center justify-between ${
+                      isSelected
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border'
                     }`}
                   >
-                    {option.price < 0 ? '' : '+'}
-                    {(option.price / 10000).toLocaleString()}만원
-                  </span>
-                </div>
-              )
-            })}
+                    <div className="flex items-center gap-2">
+                      <Checkbox checked={isSelected} className="h-4 w-4" />
+                      <span className="text-sm font-medium">{option.name}</span>
+                    </div>
+                    <span
+                      className={`text-sm font-bold ${
+                        option.price < 0 ? 'text-red-600' : 'text-primary'
+                      }`}
+                    >
+                      {option.price < 0 ? '' : '+'}
+                      {(option.price / 10000).toLocaleString()}만원
+                    </span>
+                  </div>
+                )
+              })}
           </div>
         </div>
 

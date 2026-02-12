@@ -1,13 +1,8 @@
-/**
- * M05-4: 데이터 불러오기 (N회 제출 허용)
- * 제출 횟수를 관리하고 제출 이력을 표시
- */
-
-import React from 'react'
+import React, { useState } from 'react'
 import { DeviceFrame } from '../../components/DeviceFrame'
 import { DeviceView } from '../../types'
 import { Badge } from '@/components/ui/badge'
-import { AlertCircle } from 'lucide-react'
+import { AlertCircle, Check } from 'lucide-react'
 
 interface M05_4_DataLoadProps {
   deviceView: DeviceView
@@ -22,9 +17,24 @@ export function M05_4_DataLoad({
   setM05_4_submitCount,
   m05_4_maxSubmits,
 }: M05_4_DataLoadProps) {
+  const [showConfirm, setShowConfirm] = useState(false)
+
+  const handleSubmitClick = () => {
+    setShowConfirm(true)
+  }
+
+  const handleConfirm = () => {
+    setM05_4_submitCount((prev) => prev + 1)
+    setShowConfirm(false)
+  }
+
+  const handleCancel = () => {
+    setShowConfirm(false)
+  }
+
   return (
     <DeviceFrame deviceView={deviceView}>
-      <div className="flex flex-col min-h-full p-6">
+      <div className="flex flex-col min-h-full p-6 relative">
         <div className="mb-6">
           <h2 className="text-xl font-bold text-foreground mb-2">
             N회 제출 허용
@@ -33,6 +43,35 @@ export function M05_4_DataLoad({
             💡 제출 횟수를 관리하고 최대 횟수까지 견적서를 제출할 수 있습니다
           </p>
         </div>
+
+        {/* Confirmation Modal */}
+        {showConfirm && (
+          <div className="absolute inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200 rounded-[inherit]">
+            <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm animate-in zoom-in-95 duration-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">
+                견적서를 제출하시겠습니까?
+              </h3>
+              <p className="text-sm text-slate-500 mb-6">
+                제출 후에는 관리자 페이지에서 확인할 수 있습니다.<br/>
+                (남은 횟수: {m05_4_maxSubmits - m05_4_submitCount}회)
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleCancel}
+                  className="flex-1 h-11 border border-slate-200 rounded-lg font-medium text-slate-600 hover:bg-slate-50 transition-colors"
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handleConfirm}
+                  className="flex-1 h-11 bg-primary rounded-lg font-medium text-white hover:bg-primary/90 transition-colors shadow-sm"
+                >
+                  제출하기
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="mb-8 text-center">
           <div className="inline-block p-4 rounded-full bg-slate-100 mb-4 relative">
@@ -92,7 +131,7 @@ export function M05_4_DataLoad({
             </div>
           ) : (
             <button
-              onClick={() => setM05_4_submitCount((prev) => prev + 1)}
+              onClick={handleSubmitClick}
               className="w-full h-14 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg"
             >
               견적서 제출하기 ({m05_4_maxSubmits - m05_4_submitCount}회

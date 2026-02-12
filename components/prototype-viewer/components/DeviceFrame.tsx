@@ -18,12 +18,12 @@ export function DeviceFrame({ deviceView, children }: DeviceFrameProps) {
 
   // Device frame styles
   const deviceStyles = isMobile
-    ? 'w-[375px] max-h-[90%] border-[8px] border-slate-800 rounded-[3rem]'
+    ? 'w-[375px] h-[90%] border-[8px] border-slate-800 rounded-[3rem]'
     : isTablet
-    ? 'w-[768px] max-h-[90%] border-[12px] border-slate-800 rounded-[2rem]'
+    ? 'w-[768px] h-[90%] border-[12px] border-slate-800 rounded-[2rem]'
     : 'w-full h-full border-none rounded-none'
 
-  const contentContainerStyles = `bg-white shadow-2xl transition-all duration-300 overflow-y-auto flex-1 w-full relative ${
+  const contentContainerStyles = `bg-white shadow-2xl transition-all duration-300 flex-1 w-full h-full relative overflow-y-auto ${
     isMobile || isTablet ? 'w-full' : 'w-full rounded-none'
   }`
 

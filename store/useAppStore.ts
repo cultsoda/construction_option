@@ -269,8 +269,8 @@ function calculateModulesFromAnswers(answers: ChecklistAnswers): string[] {
     modules.push('M05-2')
   }
 
-  // M05-3: 저장 위치 = '건설사 DB'
-  if (answers.q6_1 === '건설사 DB') {
+  // M05-3: 저장 위치 = '건설사 DB' 또는 데이터 연동 = Y
+  if (answers.q6_1 === '건설사 DB' || answers.q1_2) {
     modules.push('M05-3')
   }
 

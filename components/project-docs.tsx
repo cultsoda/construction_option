@@ -10,7 +10,7 @@ import { Separator } from '@/components/ui/separator'
 import {
   FileText, Target, Layout, Zap, CheckCircle2, ArrowRight,
   MonitorPlay, Settings, HelpCircle, Server, Box, ShieldCheck, MousePointerClick,
-  Layers, FileSpreadsheet, GitBranch, UserCheck, UserCog, BarChart3, FileSearch, Edit
+  Layers, FileSpreadsheet, GitBranch, UserCheck, UserCog, BarChart3, FileSearch, Edit, Share2
 } from 'lucide-react'
 export function ProjectDocs() {
   return (
@@ -119,6 +119,247 @@ export function ProjectDocs() {
               </ul>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 2-1. 모듈 자동 생성 로직 (Logic) */}
+      <section className="space-y-8">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-orange-100 rounded-xl text-orange-600 shadow-sm">
+            <Share2 className="h-6 w-6" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-slate-900">2-1. 모듈 자동 생성 로직 (Logic)</h2>
+            <p className="text-slate-500">체크리스트 답변에 따라 어떤 모듈이 활성화되는가?</p>
+          </div>
+        </div>
+
+        <div className="border rounded-xl overflow-hidden shadow-sm bg-white">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-left">
+              <thead className="bg-slate-50 text-slate-500 border-b">
+                <tr>
+                  <th className="px-6 py-3 font-semibold w-1/4">질문 (Question)</th>
+                  <th className="px-6 py-3 font-semibold w-1/4">답변 (Answer)</th>
+                  <th className="px-6 py-3 font-semibold w-1/4">생성 모듈 (Module)</th>
+                  <th className="px-6 py-3 font-semibold w-1/4">설명 (Note)</th>
+                </tr>
+              </thead>
+                            <tbody className="divide-y divide-slate-100">
+                              {/* Q1 시스템 연동 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900" rowSpan={2}>Q1. 시스템 연동</td>
+                                <td className="px-6 py-4 text-slate-600">IdP 연동 = Y</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">M01-1</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">건설사 SSO 로그인</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">데이터 연동 = Y</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M05-3</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">건설사 API 전송</td>
+                              </tr>
+                              
+                              {/* Q2 인증/접근 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900" rowSpan={4}>Q2. 인증/접근</td>
+                                <td className="px-6 py-4 text-slate-600">로그인 = Y (IdP=N)</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">M01-2</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">자체 로그인 시스템</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">로그인 = N (정보입력 O)</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">M01-3</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">고객 정보 입력 폼</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">유효성 체크 = Y</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">M01-4</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">입력 정보 유효성 검증</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">(Always)</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">M01-6</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">입력 정보 상단 표시 (필수)</td>
+                              </tr>
+              
+                              {/* Q3 옵션 구조 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900" rowSpan={7}>Q3. 옵션 구조</td>
+                                <td className="px-6 py-4 text-slate-600">(Always)</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1 flex-wrap">
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-1</Badge>
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-6</Badge>
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-7</Badge>
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-8</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">1Depth, 기본값, 가격, 계산 (필수)</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">Depth ≥ 2</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-2</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">2Depth 옵션 UI</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">Depth = 3</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-3</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">3Depth 옵션 UI</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">1Depth 영향 = Y / 구조물 변경</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1">
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-4</Badge>
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M03-5</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">옵션 연동 + 공간 구조 변경</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">다중 선택 = Y</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-5</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">다중 선택 기능 활성화</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">배타 / 마이너스 = Y</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1">
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-9</Badge>
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-10</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">특수 로직 (배타선택, 마이너스옵션)</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">필수 연관 = Y</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">M02-11</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">필수 연관 선택 가이드</td>
+                              </tr>
+              
+                              {/* Q4 공간 네비게이션 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900" rowSpan={2}>Q4. 공간 네비게이션</td>
+                                <td className="px-6 py-4 text-slate-600">(Always)</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M03-1</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">3D 뷰어 기본 (필수)</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">이동 = 위치 버튼 / 자동 / 표시</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1 flex-wrap">
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M03-2</Badge>
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M03-3</Badge>
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M03-4</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">네비게이션 및 하이라이트</td>
+                              </tr>
+              
+                              {/* Q5 견적 기능 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900" rowSpan={3}>Q5. 견적 기능</td>
+                                <td className="px-6 py-4 text-slate-600">(Always)</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1 flex-wrap">
+                                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">M04-1</Badge>
+                                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">M04-2</Badge>
+                                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">M04-3</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">견적서 팝업, 요약, 최종화면 (필수)</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">수정 / 이동 = Y</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1">
+                                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">M04-4</Badge>
+                                    <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">M04-5</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">견적 수정 및 단계 이동</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">다운로드 = PDF or Excel</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">M04-6</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">통합 파일 다운로드 모듈</td>
+                              </tr>
+              
+                              {/* Q6 데이터 저장 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900" rowSpan={3}>Q6. 데이터 저장</td>
+                                <td className="px-6 py-4 text-slate-600">저장 위치</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1 flex-wrap">
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M05-1</Badge>
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M05-2</Badge>
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M05-3</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">구글 시트 / 자체 DB / 건설사 API</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">제출 횟수</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1">
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M05-4</Badge>
+                                    <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M05-5</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">N회 제출 / 1회 제한</td>
+                              </tr>
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 text-slate-600">이력 추적 = Y</td>
+                                <td className="px-6 py-4"><Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">M05-6</Badge></td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">제출 이력 관리</td>
+                              </tr>
+              
+                              {/* Q7 UI 커스터마이징 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900">Q7. UI 커스터마이징</td>
+                                <td className="px-6 py-4 text-slate-600">요소 선택 (로고, 컬러 등)</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1 flex-wrap">
+                                    <Badge variant="outline" className="bg-pink-50 text-pink-700 border-pink-200">M06-1</Badge>
+                                    <Badge variant="outline" className="bg-pink-50 text-pink-700 border-pink-200">M06-2</Badge>
+                                    <Badge variant="outline" className="bg-pink-50 text-pink-700 border-pink-200">M06-3</Badge>
+                                    <Badge variant="outline" className="bg-pink-50 text-pink-700 border-pink-200">M06-4</Badge>
+                                    <Badge variant="outline" className="bg-pink-50 text-pink-700 border-pink-200">M06-5</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">브랜드 아이덴티티 적용 모듈</td>
+                              </tr>
+              
+                              {/* Q8 가이드 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900">Q8. 가이드/도움말</td>
+                                <td className="px-6 py-4 text-slate-600">제공 방식 / 접근 방법</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1 flex-wrap">
+                                    <Badge variant="outline" className="bg-indigo-50 text-indigo-700 border-indigo-200">M07-1</Badge>
+                                    <Badge variant="outline" className="bg-indigo-50 text-indigo-700 border-indigo-200">M07-2</Badge>
+                                    <Badge variant="outline" className="bg-indigo-50 text-indigo-700 border-indigo-200">M07-3</Badge>
+                                    <Badge variant="outline" className="bg-indigo-50 text-indigo-700 border-indigo-200">M07-4</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">이미지/영상, 팝업/버튼 가이드</td>
+                              </tr>
+              
+                              {/* Q9 관리 기능 */}
+                              <tr className="hover:bg-slate-50/50">
+                                <td className="px-6 py-4 font-medium text-slate-900">Q9. 관리 기능</td>
+                                <td className="px-6 py-4 text-slate-600">관리자 페이지 = Y</td>
+                                <td className="px-6 py-4">
+                                  <div className="flex gap-1 flex-wrap">
+                                    <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">M08-1</Badge>
+                                    <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">M08-2</Badge>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-slate-500 text-xs">대시보드, 데이터 검색/조회</td>
+                              </tr>
+                            </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
